@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
+  basePath: '/ccw-lyrics',
+  assetPrefix: '/ccw-lyrics',
   eslint: {
     ignoreDuringBuilds: true,
   },
