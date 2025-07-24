@@ -20,7 +20,8 @@ export default function SingleSongPage({ params }: SingleSongPageProps) {
   const router = useRouter()
   const resolvedParams = use(params)
   const setlist = setlists.find((s) => s.id === resolvedParams.date)
-  const song = setlist?.songs.find((s) => s.id === resolvedParams.songId)
+  const songIndex = parseInt(resolvedParams.songId)
+  const song = setlist?.songs[songIndex]
 
   if (!setlist || !song) {
     // In a real app, you might want to redirect to a 404 page or home
@@ -35,15 +36,17 @@ export default function SingleSongPage({ params }: SingleSongPageProps) {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
       <header className="sticky top-0 z-20 bg-white dark:bg-gray-800 shadow-sm py-3 px-4 flex items-center justify-between">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => router.push(`/setlist/${setlist.id}`)}
-          aria-label="Go back to setlist"
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          onClick={() => router.push(`/setlist/${setlist.id}`)} 
+          aria-label="Go back to setlist" 
+          className="flex items-center gap-1"
         >
-          <ChevronLeft className="h-6 w-6" />
+          <ChevronLeft className="h-5 w-5" />
+          <span className="text-sm">Back</span>
         </Button>
-        <h1 className="text-lg font-semibold text-center flex-1">{song.title}</h1>
+        <h1 className="text-lg font-semibold text-center flex-1">{setlist.date}</h1>
         <div className="flex items-center gap-2">
           <FontSizeControls />
           <ThemeToggle />

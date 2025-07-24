@@ -5,7 +5,7 @@ import { MarkdownRenderer } from "@/components/markdown-renderer"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { FontSizeControls } from "@/components/font-size-controls"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft } from "lucide-react"
+import { ChevronLeft, BookOpen, Music } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { setlists } from "@/lib/data"
 import { useState, use } from "react"
@@ -22,9 +22,8 @@ interface SetlistPageProps {
 function AllSongsContinuousViewer({ songs }: { songs: Song[] }) {
   return (
     <div className="space-y-8">
-      {songs.map((song) => (
-        <div key={song.id} className="pb-4 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
-          <h2 className="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-gray-200">{song.title}</h2>
+      {songs.map((song, index) => (
+        <div key={index} className="pb-4 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
           <MarkdownRenderer content={song.lyrics} />
         </div>
       ))}
@@ -51,31 +50,44 @@ export default function SetlistPage({ params }: SetlistPageProps) {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
       <header className="sticky top-0 z-20 bg-white dark:bg-gray-800 shadow-sm py-3 px-4 flex items-center justify-between">
-        <Button variant="ghost" size="icon" onClick={() => router.push("/")} aria-label="Go back to setlists">
-          <ChevronLeft className="h-6 w-6" />
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          onClick={() => viewMode === "all" ? setViewMode("list") : router.push("/")} 
+          aria-label={viewMode === "all" ? "Back to song list" : "Go back to setlists"} 
+          className="flex items-center gap-1"
+        >
+          <ChevronLeft className="h-5 w-5" />
+          <span className="text-sm">Back</span>
         </Button>
         <h1 className="text-lg font-semibold text-center flex-1">{setlist.date}</h1>
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setViewMode(viewMode === "list" ? "all" : "list")}
-            className="text-sm"
-          >
-            {viewMode === "list" ? "View All" : "View List"}
-          </Button>
-          <FontSizeControls />
+          {viewMode === "all" && <FontSizeControls />}
           <ThemeToggle />
         </div>
       </header>
       <main className="flex-1 p-4 overflow-auto">
         {viewMode === "list" ? (
           <div className="space-y-4">
-            {setlist.songs.map((song) => (
-              <Link key={song.id} href={`/setlist/${setlist.id}/${song.id}`} className="block">
+            <Card 
+              className="w-full rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
+              onClick={() => setViewMode("all")}
+            >
+              <CardContent className="p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <BookOpen className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+                  <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">View All Songs</h2>
+                </div>
+              </CardContent>
+            </Card>
+            {setlist.songs.map((song, index) => (
+              <Link key={index} href={`/setlist/${setlist.id}/${index}`} className="block">
                 <Card className="w-full rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
                   <CardContent className="p-4 flex items-center justify-between">
-                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{song.title}</h2>
+                    <div className="flex items-center gap-3">
+                      <Music className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+                      <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{song.title}</h2>
+                    </div>
                   </CardContent>
                 </Card>
               </Link>

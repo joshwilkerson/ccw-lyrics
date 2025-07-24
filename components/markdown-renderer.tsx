@@ -2,6 +2,7 @@
 
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
+import remarkBreaks from "remark-breaks"
 import { useFontSize } from "@/context/font-size-context"
 import { cn } from "@/lib/utils"
 
@@ -29,12 +30,26 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
     <div className="markdown-content">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkBreaks]}
         components={{
-          h1: ({ node, ...props }) => <h1 className={cn(headingClass, "text-center")} {...props} />,
-          h2: ({ node, ...props }) => <h2 className={cn(headingClass, "text-left")} {...props} />,
-          p: ({ node, ...props }) => <p className={paragraphClass} {...props} />,
-          strong: ({ node, ...props }) => <strong className="font-semibold" {...props} />,
+          h1: ({ node, ...props }) => (
+            <h1 className={cn(headingClass, "text-left")} {...props} />
+          ),
+          h2: ({ node, ...props }) => (
+            <h2 className={cn(headingClass, "text-left")} {...props} />
+          ),
+          h3: ({ node, ...props }) => (
+            <h3 className={cn(headingClass, "text-left")} {...props} />
+          ),
+          h4: ({ node, ...props }) => (
+            <h4 className={cn(headingClass, "text-left")} {...props} />
+          ),
+          p: ({ node, ...props }) => (
+            <p className={paragraphClass} {...props} />
+          ),
+          strong: ({ node, ...props }) => (
+            <strong className="font-semibold" {...props} />
+          ),
         }}
       >
         {content}
