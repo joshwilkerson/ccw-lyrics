@@ -6,26 +6,28 @@ import { FontSizeControls } from "@/components/font-size-controls"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { use } from "react"
 import { setlists } from "@/lib/data"
 
 interface SingleSongPageProps {
-  params: {
+  params: Promise<{
     date: string
     songId: string
-  }
+  }>
 }
 
 export default function SingleSongPage({ params }: SingleSongPageProps) {
   const router = useRouter()
-  const setlist = setlists.find((s) => s.id === params.date)
-  const song = setlist?.songs.find((s) => s.id === params.songId)
+  const resolvedParams = use(params)
+  const setlist = setlists.find((s) => s.id === resolvedParams.date)
+  const song = setlist?.songs.find((s) => s.id === resolvedParams.songId)
 
   if (!setlist || !song) {
     // In a real app, you might want to redirect to a 404 page or home
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50 p-4">
         <h1 className="text-2xl font-bold mb-4">Song Not Found</h1>
-        <Button onClick={() => router.push(`/setlist/${params.date}`)}>Back to Setlist</Button>
+        <Button onClick={() => router.push(`/setlist/${resolvedParams.date}`)}>Back to Setlist</Button>
       </div>
     )
   }

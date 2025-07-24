@@ -8,14 +8,14 @@ import { Button } from "@/components/ui/button"
 import { ChevronLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { setlists } from "@/lib/data"
-import { useState } from "react"
+import { useState, use } from "react"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 
 interface SetlistPageProps {
-  params: {
+  params: Promise<{
     date: string
-  }
+  }>
 }
 
 // Component to display all songs in a continuous scroll
@@ -34,7 +34,8 @@ function AllSongsContinuousViewer({ songs }: { songs: Song[] }) {
 
 export default function SetlistPage({ params }: SetlistPageProps) {
   const router = useRouter()
-  const setlist = setlists.find((s) => s.id === params.date)
+  const resolvedParams = use(params)
+  const setlist = setlists.find((s) => s.id === resolvedParams.date)
   const [viewMode, setViewMode] = useState<"list" | "all">("list") // 'list' or 'all'
 
   if (!setlist) {
