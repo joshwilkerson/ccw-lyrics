@@ -2,6 +2,11 @@
 
 A Next.js application for displaying church song setlists and lyrics with markdown support.
 
+## Deployment (Vercel CLI)
+
+- Build: `yarn build`
+- Deploy: `vercel deploy --prod out`
+
 ## Features
 
 - Browse setlists by date
