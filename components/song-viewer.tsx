@@ -31,8 +31,8 @@ export function SongViewer({ setlistDate, songs }: SongViewerProps) {
       </header>
       <main className="flex-1 p-4 overflow-auto">
         <Accordion type="multiple" className="w-full">
-          {songs.map((song) => (
-            <AccordionItem key={song.id} value={song.id} className="border-b border-gray-200 dark:border-gray-700">
+          {songs.map((song, index) => (
+            <AccordionItem key={index} value={String(index)} className="border-b border-gray-200 dark:border-gray-700">
               <AccordionTrigger className="text-left text-lg font-medium py-3 px-2 hover:no-underline">
                 {song.title}
               </AccordionTrigger>
