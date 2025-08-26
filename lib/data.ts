@@ -32,8 +32,8 @@ export const setlists: Setlist[] = [
     date: "August 27, 2025",
     songs: [
       greatAreYouLord,
-      restOnUs,
       praiseYahweh,
+      restOnUs,
       tenThousandReasons,
       battleBelongs,
     ].map(parseSong),
