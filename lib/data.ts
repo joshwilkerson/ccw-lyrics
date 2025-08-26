@@ -4,7 +4,7 @@ import makeRoom from "../songs/make-room.md"
 import holyForever from "../songs/holy-forever.md"
 import greatAreYouLord from "../songs/great-are-you-lord.md"
 import restOnUs from "../songs/rest-on-us.md"
-import praiseYaweh from "../songs/praise-yaweh.md"
+import praiseYahweh from "../songs/praise-yahweh.md"
 import tenThousandReasons from "../songs/ten-thousand-reasons.md"
 import battleBelongs from "../songs/battle-belongs.md"
 
@@ -33,7 +33,7 @@ export const setlists: Setlist[] = [
     songs: [
       greatAreYouLord,
       restOnUs,
-      praiseYaweh,
+      praiseYahweh,
       tenThousandReasons,
       battleBelongs,
     ].map(parseSong),

@@ -1,8 +1,8 @@
 ---
-title: "Praise Yaweh"
+title: "Praise Yahweh"
 ---
 
-# Praise Yaweh
+# Praise Yahweh
 
 ### Verse 1
 
