@@ -32,22 +32,22 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkBreaks]}
         components={{
-          h1: ({ node, ...props }) => (
+          h1: ({ ...props }) => (
             <h1 className={cn(headingClass, "text-left")} {...props} />
           ),
-          h2: ({ node, ...props }) => (
+          h2: ({ ...props }) => (
             <h2 className={cn(headingClass, "text-left")} {...props} />
           ),
-          h3: ({ node, ...props }) => (
+          h3: ({ ...props }) => (
             <h3 className={cn(headingClass, "text-left")} {...props} />
           ),
-          h4: ({ node, ...props }) => (
+          h4: ({ ...props }) => (
             <h4 className={cn(headingClass, "text-left")} {...props} />
           ),
-          p: ({ node, ...props }) => (
+          p: ({ ...props }) => (
             <p className={paragraphClass} {...props} />
           ),
-          strong: ({ node, ...props }) => (
+          strong: ({ ...props }) => (
             <strong className="font-semibold" {...props} />
           ),
         }}
