@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Environment and config files
+.env*
+.vercel/
+
+# Cache directories
+.eslintcache
+
+# OS generated files
+.DS_Store
+Thumbs.db
