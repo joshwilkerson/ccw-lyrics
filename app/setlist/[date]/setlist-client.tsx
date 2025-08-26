@@ -64,9 +64,7 @@ export function SetlistClient({ params }: SetlistClientProps) {
           <ChevronLeft className="h-5 w-5" />
           <span className="text-sm">Back</span>
         </Button>
-        <h1 className="text-lg font-semibold text-center flex-1">
-          {setlist.date}
-        </h1>
+
         <div className="flex items-center gap-2">
           {viewMode === "all" && <FontSizeControls />}
           <ThemeToggle />
