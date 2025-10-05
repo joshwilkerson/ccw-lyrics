@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "deploy": "astro build && vercel deploy --prod",
+    "check-code": "astro check",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,astro,json,md,css}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,astro,json,md,css}\""
   },
@@ -21,6 +22,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.4",
     "@types/node": "^22",
     "postcss": "^8.5",
     "prettier": "^3.6.2",

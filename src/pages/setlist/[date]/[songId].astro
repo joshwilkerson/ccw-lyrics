@@ -3,12 +3,13 @@ import BaseLayout from '../../../layouts/BaseLayout.astro'
 import ThemeToggle from '../../../components/ThemeToggle.astro'
 import FontSizeControls from '../../../components/FontSizeControls.astro'
 import MarkdownRenderer from '../../../components/MarkdownRenderer.astro'
-import { setlists } from '../../../lib/data'
+import { getSetlists } from '../../../lib/data'
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
   const paths = []
+  const allSetlists = await getSetlists()
 
-  for (const setlist of setlists) {
+  for (const setlist of allSetlists) {
     for (let songIndex = 0; songIndex < setlist.songs.length; songIndex++) {
       paths.push({
         params: {
@@ -27,7 +28,7 @@ export function getStaticPaths() {
   return paths
 }
 
-const { setlist, song, songIndex } = Astro.props
+const { setlist, song } = Astro.props
 ---
 
 <BaseLayout title={`${song.title} - ${setlist.date} - Commonwealth Community Worship`}>

@@ -50,8 +50,8 @@
 
 <script>
   function initFontSizeControls() {
-    const decreaseButton = document.getElementById('decrease-font')
-    const increaseButton = document.getElementById('increase-font')
+    const decreaseButton = document.getElementById('decrease-font') as HTMLButtonElement | null
+    const increaseButton = document.getElementById('increase-font') as HTMLButtonElement | null
 
     const fontSizeMultipliers = {
       sm: 1,
