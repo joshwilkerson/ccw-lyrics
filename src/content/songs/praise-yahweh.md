@@ -1,5 +1,5 @@
 ---
-title: "Praise Yahweh"
+title: 'Praise Yahweh'
 ---
 
 # Praise Yahweh

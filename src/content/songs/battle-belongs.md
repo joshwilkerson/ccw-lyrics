@@ -1,5 +1,5 @@
 ---
-title: "Battle Belongs"
+title: 'Battle Belongs'
 ---
 
 # Battle Belongs

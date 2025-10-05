@@ -1,5 +1,5 @@
 ---
-title: "10,000 Reasons"
+title: '10,000 Reasons'
 ---
 
 # 10,000 Reasons

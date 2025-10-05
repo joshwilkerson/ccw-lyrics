@@ -1,11 +1,11 @@
 ---
-import '../styles/globals.css';
+import '../styles/globals.css'
 
 interface Props {
-  title?: string;
+  title?: string
 }
 
-const { title = 'Commonwealth Community Worship' } = Astro.props;
+const { title = 'Commonwealth Community Worship' } = Astro.props
 ---
 
 <!doctype html>
@@ -25,34 +25,43 @@ const { title = 'Commonwealth Community Worship' } = Astro.props;
     <!-- Inline script to prevent flash of unstyled content -->
     <script is:inline>
       // Theme initialization
-      (function() {
-        const theme = localStorage.getItem('theme');
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        const activeTheme = theme || systemTheme;
+      ;(function () {
+        const theme = localStorage.getItem('theme')
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light'
+        const activeTheme = theme || systemTheme
 
         if (activeTheme === 'dark') {
-          document.documentElement.classList.add('dark');
+          document.documentElement.classList.add('dark')
         } else {
-          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.remove('dark')
         }
-      })();
+      })()
 
       // Font size initialization
-      (function() {
-        const fontSizeLevel = localStorage.getItem('fontSizeLevel') || 'md';
+      ;(function () {
+        const fontSizeLevel = localStorage.getItem('fontSizeLevel') || 'md'
         const fontSizeMultipliers = {
           sm: 1,
           md: 1.125,
-          lg: 1.25
-        };
-        const multiplier = fontSizeMultipliers[fontSizeLevel] || 1.125;
-        document.documentElement.style.setProperty('--font-multiplier', multiplier);
-      })();
+          lg: 1.25,
+        }
+        const multiplier = fontSizeMultipliers[fontSizeLevel] || 1.125
+        document.documentElement.style.setProperty('--font-multiplier', multiplier)
+      })()
     </script>
 
     <style>
       body {
-        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
       }
     </style>
   </head>

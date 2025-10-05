@@ -1,19 +1,19 @@
 ---
-import { marked } from 'marked';
+import { marked } from 'marked'
 
 interface Props {
-  content: string;
+  content: string
 }
 
-const { content } = Astro.props;
+const { content } = Astro.props
 
 // Configure marked to add line breaks
 marked.setOptions({
   breaks: true,
   gfm: true,
-});
+})
 
-const htmlContent = marked.parse(content);
+const htmlContent = marked.parse(content)
 ---
 
 <div class="markdown-content leading-relaxed">

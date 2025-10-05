@@ -18,11 +18,13 @@ A Next.js application for displaying church song setlists and lyrics with markdo
 ## Getting Started
 
 1. Install dependencies:
+
    ```bash
    yarn install
    ```
 
 2. Run the development server:
+
    ```bash
    yarn dev
    ```

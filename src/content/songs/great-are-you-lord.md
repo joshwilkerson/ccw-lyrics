@@ -1,5 +1,5 @@
 ---
-title: "Great Are You Lord"
+title: 'Great Are You Lord'
 ---
 
 # Great Are You Lord

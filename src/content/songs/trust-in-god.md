@@ -1,5 +1,5 @@
 ---
-title: "Trust in God"
+title: 'Trust in God'
 ---
 
 # Trust in God

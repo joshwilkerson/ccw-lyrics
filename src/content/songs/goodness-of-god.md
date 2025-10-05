@@ -1,5 +1,5 @@
 ---
-title: "Goodness of God"
+title: 'Goodness of God'
 ---
 
 # Goodness of God

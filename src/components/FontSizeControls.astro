@@ -50,75 +50,75 @@
 
 <script>
   function initFontSizeControls() {
-    const decreaseButton = document.getElementById('decrease-font');
-    const increaseButton = document.getElementById('increase-font');
+    const decreaseButton = document.getElementById('decrease-font')
+    const increaseButton = document.getElementById('increase-font')
 
     const fontSizeMultipliers = {
       sm: 1,
       md: 1.125,
-      lg: 1.25
-    };
+      lg: 1.25,
+    }
 
     function updateFontSize(level: 'sm' | 'md' | 'lg') {
-      const multiplier = fontSizeMultipliers[level];
-      document.documentElement.style.setProperty('--font-multiplier', String(multiplier));
-      localStorage.setItem('fontSizeLevel', level);
-      updateButtonStates(level);
+      const multiplier = fontSizeMultipliers[level]
+      document.documentElement.style.setProperty('--font-multiplier', String(multiplier))
+      localStorage.setItem('fontSizeLevel', level)
+      updateButtonStates(level)
     }
 
     function updateButtonStates(level: 'sm' | 'md' | 'lg') {
       if (decreaseButton && increaseButton) {
         if (level === 'sm') {
-          decreaseButton.disabled = true;
+          decreaseButton.disabled = true
         } else {
-          decreaseButton.disabled = false;
+          decreaseButton.disabled = false
         }
 
         if (level === 'lg') {
-          increaseButton.disabled = true;
+          increaseButton.disabled = true
         } else {
-          increaseButton.disabled = false;
+          increaseButton.disabled = false
         }
       }
     }
 
     function getCurrentLevel(): 'sm' | 'md' | 'lg' {
-      const stored = localStorage.getItem('fontSizeLevel');
+      const stored = localStorage.getItem('fontSizeLevel')
       if (stored === 'sm' || stored === 'md' || stored === 'lg') {
-        return stored;
+        return stored
       }
-      return 'md';
+      return 'md'
     }
 
     function decreaseFont() {
-      const current = getCurrentLevel();
+      const current = getCurrentLevel()
       if (current === 'md') {
-        updateFontSize('sm');
+        updateFontSize('sm')
       } else if (current === 'lg') {
-        updateFontSize('md');
+        updateFontSize('md')
       }
     }
 
     function increaseFont() {
-      const current = getCurrentLevel();
+      const current = getCurrentLevel()
       if (current === 'sm') {
-        updateFontSize('md');
+        updateFontSize('md')
       } else if (current === 'md') {
-        updateFontSize('lg');
+        updateFontSize('lg')
       }
     }
 
     // Initialize button states
-    updateButtonStates(getCurrentLevel());
+    updateButtonStates(getCurrentLevel())
 
     // Add event listeners
-    decreaseButton?.addEventListener('click', decreaseFont);
-    increaseButton?.addEventListener('click', increaseFont);
+    decreaseButton?.addEventListener('click', decreaseFont)
+    increaseButton?.addEventListener('click', increaseFont)
   }
 
   // Run on page load
-  initFontSizeControls();
+  initFontSizeControls()
 
   // Re-run after view transitions (if using Astro view transitions)
-  document.addEventListener('astro:after-swap', initFontSizeControls);
+  document.addEventListener('astro:after-swap', initFontSizeControls)
 </script>

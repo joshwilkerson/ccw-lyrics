@@ -1,5 +1,5 @@
 ---
-title: "Holy Forever"
+title: 'Holy Forever'
 ---
 
 # Holy Forever
