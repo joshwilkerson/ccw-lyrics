@@ -1,0 +1,111 @@
+---
+import { marked } from 'marked';
+
+interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+
+// Configure marked to add line breaks
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+});
+
+const htmlContent = marked.parse(content);
+---
+
+<div class="markdown-content leading-relaxed">
+  <Fragment set:html={htmlContent} />
+</div>
+
+<style>
+  .markdown-content {
+    font-size: calc(var(--font-multiplier, 1.125) * 1rem);
+  }
+
+  .markdown-content :global(h1) {
+    font-size: calc(var(--font-multiplier, 1.125) * 1.75rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid;
+    @apply border-gray-300 dark:border-gray-600 text-left;
+  }
+
+  .markdown-content :global(h2) {
+    font-size: calc(var(--font-multiplier, 1.125) * 1.5rem);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    margin-top: 1.25rem;
+    @apply text-left;
+  }
+
+  .markdown-content :global(h3) {
+    font-size: calc(var(--font-multiplier, 1.125) * 1.25rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+    @apply text-left;
+  }
+
+  .markdown-content :global(h4) {
+    font-size: calc(var(--font-multiplier, 1.125) * 1.125rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    margin-top: 0.75rem;
+    @apply text-left;
+  }
+
+  .markdown-content :global(h5) {
+    font-size: calc(var(--font-multiplier, 1.125) * 1.125rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    margin-top: 0.75rem;
+    @apply text-left;
+  }
+
+  .markdown-content :global(h6) {
+    font-size: calc(var(--font-multiplier, 1.125) * 1rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    @apply text-left;
+  }
+
+  .markdown-content :global(p) {
+    margin-bottom: 0.75rem;
+  }
+
+  .markdown-content :global(strong) {
+    font-weight: 600;
+  }
+
+  .markdown-content :global(ul) {
+    list-style: disc;
+    list-style-position: inside;
+    margin-bottom: 0.75rem;
+    margin-left: 1rem;
+  }
+
+  .markdown-content :global(ol) {
+    list-style: decimal;
+    list-style-position: inside;
+    margin-bottom: 0.75rem;
+    margin-left: 1rem;
+  }
+
+  .markdown-content :global(li) {
+    margin-bottom: 0.25rem;
+  }
+
+  .markdown-content :global(blockquote) {
+    border-left: 4px solid;
+    padding-left: 1rem;
+    font-style: italic;
+    margin-bottom: 0.75rem;
+    @apply border-gray-300 dark:border-gray-600;
+  }
+</style>

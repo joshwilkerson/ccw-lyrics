@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ThemeToggle from '../../../components/ThemeToggle.astro';
+import FontSizeControls from '../../../components/FontSizeControls.astro';
+import MarkdownRenderer from '../../../components/MarkdownRenderer.astro';
+import { setlists } from '../../../lib/data';
+
+export function getStaticPaths() {
+  const paths = [];
+
+  for (const setlist of setlists) {
+    for (let songIndex = 0; songIndex < setlist.songs.length; songIndex++) {
+      paths.push({
+        params: {
+          date: setlist.id,
+          songId: songIndex.toString(),
+        },
+        props: {
+          setlist,
+          song: setlist.songs[songIndex],
+          songIndex,
+        },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { setlist, song, songIndex } = Astro.props;
+---
+
+<BaseLayout title={`${song.title} - ${setlist.date} - Commonwealth Community Worship`}>
+  <div class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
+    <header class="sticky top-0 z-20 bg-white dark:bg-gray-800 shadow-sm py-3 px-4 flex items-center justify-between">
+      <a
+        href={`/setlist/${setlist.id}/`}
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-5 w-5"
+        >
+          <path d="m15 18-6-6 6-6"></path>
+        </svg>
+        <span class="text-sm">Back</span>
+      </a>
+      <div class="flex items-center gap-2">
+        <FontSizeControls />
+        <ThemeToggle />
+      </div>
+    </header>
+    <main class="flex-1 p-4 overflow-auto">
+      <MarkdownRenderer content={song.lyrics} />
+    </main>
+  </div>
+</BaseLayout>

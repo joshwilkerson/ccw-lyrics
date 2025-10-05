@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/ui/Card.astro';
+import CardContent from '../../components/ui/CardContent.astro';
+import Button from '../../components/ui/Button.astro';
+import ThemeToggle from '../../components/ThemeToggle.astro';
+import FontSizeControls from '../../components/FontSizeControls.astro';
+import MarkdownRenderer from '../../components/MarkdownRenderer.astro';
+import { setlists } from '../../lib/data';
+
+export function getStaticPaths() {
+  return setlists.map((setlist) => ({
+    params: { date: setlist.id },
+    props: { setlist },
+  }));
+}
+
+const { setlist } = Astro.props;
+---
+
+<BaseLayout title={`${setlist.date} - Commonwealth Community Worship`}>
+  <div class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
+    <header class="sticky top-0 z-20 bg-white dark:bg-gray-800 shadow-sm py-3 px-4 flex items-center justify-between">
+      <a
+        href="/"
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-5 w-5"
+        >
+          <path d="m15 18-6-6 6-6"></path>
+        </svg>
+        <span class="text-sm">Back</span>
+      </a>
+
+      <div class="flex items-center gap-2" id="header-controls">
+        <div id="font-controls-container" class="hidden">
+          <FontSizeControls />
+        </div>
+        <ThemeToggle />
+      </div>
+    </header>
+    <main class="flex-1 p-4 overflow-auto" id="main-content">
+      <div id="list-view" class="space-y-4">
+        <button
+          id="view-all-button"
+          class="w-full"
+        >
+          <Card class="w-full rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer">
+            <CardContent class="p-4 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="h-5 w-5 text-gray-600 dark:text-gray-400"
+                >
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                  View All Songs
+                </h2>
+              </div>
+            </CardContent>
+          </Card>
+        </button>
+        {setlist.songs.map((song, index) => (
+          <a href={`/setlist/${setlist.id}/${index}/`} class="block">
+            <Card class="w-full rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+              <CardContent class="p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-5 w-5 text-gray-600 dark:text-gray-400"
+                  >
+                    <path d="M9 18V5l12-2v13"></path>
+                    <circle cx="6" cy="18" r="3"></circle>
+                    <circle cx="18" cy="16" r="3"></circle>
+                  </svg>
+                  <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                    {song.title}
+                  </h2>
+                </div>
+              </CardContent>
+            </Card>
+          </a>
+        ))}
+      </div>
+      <div id="all-songs-view" class="hidden space-y-8">
+        {setlist.songs.map((song) => (
+          <div class="pb-4">
+            <MarkdownRenderer content={song.lyrics} />
+          </div>
+        ))}
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function initViewToggle() {
+      const viewAllButton = document.getElementById('view-all-button');
+      const listView = document.getElementById('list-view');
+      const allSongsView = document.getElementById('all-songs-view');
+      const backButton = document.querySelector('header a[href="/"]');
+      const fontControlsContainer = document.getElementById('font-controls-container');
+
+      let isAllView = false;
+
+      function toggleView() {
+        isAllView = !isAllView;
+
+        if (isAllView) {
+          listView?.classList.add('hidden');
+          allSongsView?.classList.remove('hidden');
+          fontControlsContainer?.classList.remove('hidden');
+          if (backButton) {
+            backButton.textContent = '';
+            backButton.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                <path d="m15 18-6-6 6-6"></path>
+              </svg>
+              <span class="text-sm">Back</span>
+            `;
+            backButton.onclick = (e) => {
+              e.preventDefault();
+              toggleView();
+            };
+          }
+        } else {
+          listView?.classList.remove('hidden');
+          allSongsView?.classList.add('hidden');
+          fontControlsContainer?.classList.add('hidden');
+          if (backButton) {
+            backButton.onclick = null;
+          }
+        }
+      }
+
+      viewAllButton?.addEventListener('click', toggleView);
+    }
+
+    // Run on page load
+    initViewToggle();
+
+    // Re-run after view transitions
+    document.addEventListener('astro:after-swap', initViewToggle);
+  </script>
+</BaseLayout>

@@ -1,0 +1,124 @@
+---
+// FontSizeControls component with inline script for interactivity
+---
+
+<div class="flex items-center gap-1">
+  <button
+    id="decrease-font"
+    type="button"
+    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+    aria-label="Decrease font size"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M5 12h14"></path>
+    </svg>
+    <span class="sr-only">Decrease font size</span>
+  </button>
+  <button
+    id="increase-font"
+    type="button"
+    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+    aria-label="Increase font size"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M5 12h14"></path>
+      <path d="M12 5v14"></path>
+    </svg>
+    <span class="sr-only">Increase font size</span>
+  </button>
+</div>
+
+<script>
+  function initFontSizeControls() {
+    const decreaseButton = document.getElementById('decrease-font');
+    const increaseButton = document.getElementById('increase-font');
+
+    const fontSizeMultipliers = {
+      sm: 1,
+      md: 1.125,
+      lg: 1.25
+    };
+
+    function updateFontSize(level: 'sm' | 'md' | 'lg') {
+      const multiplier = fontSizeMultipliers[level];
+      document.documentElement.style.setProperty('--font-multiplier', String(multiplier));
+      localStorage.setItem('fontSizeLevel', level);
+      updateButtonStates(level);
+    }
+
+    function updateButtonStates(level: 'sm' | 'md' | 'lg') {
+      if (decreaseButton && increaseButton) {
+        if (level === 'sm') {
+          decreaseButton.disabled = true;
+        } else {
+          decreaseButton.disabled = false;
+        }
+
+        if (level === 'lg') {
+          increaseButton.disabled = true;
+        } else {
+          increaseButton.disabled = false;
+        }
+      }
+    }
+
+    function getCurrentLevel(): 'sm' | 'md' | 'lg' {
+      const stored = localStorage.getItem('fontSizeLevel');
+      if (stored === 'sm' || stored === 'md' || stored === 'lg') {
+        return stored;
+      }
+      return 'md';
+    }
+
+    function decreaseFont() {
+      const current = getCurrentLevel();
+      if (current === 'md') {
+        updateFontSize('sm');
+      } else if (current === 'lg') {
+        updateFontSize('md');
+      }
+    }
+
+    function increaseFont() {
+      const current = getCurrentLevel();
+      if (current === 'sm') {
+        updateFontSize('md');
+      } else if (current === 'md') {
+        updateFontSize('lg');
+      }
+    }
+
+    // Initialize button states
+    updateButtonStates(getCurrentLevel());
+
+    // Add event listeners
+    decreaseButton?.addEventListener('click', decreaseFont);
+    increaseButton?.addEventListener('click', increaseFont);
+  }
+
+  // Run on page load
+  initFontSizeControls();
+
+  // Re-run after view transitions (if using Astro view transitions)
+  document.addEventListener('astro:after-swap', initFontSizeControls);
+</script>

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/ui/Card.astro';
+import CardContent from '../components/ui/CardContent.astro';
+import { setlists } from '../lib/data';
+---
+
+<BaseLayout title="Commonwealth Community Worship">
+  <main class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
+    <header class="sticky top-0 z-10 bg-white dark:bg-gray-800 shadow-sm py-4 px-4">
+      <h1 class="text-md font-bold text-center">
+        Commonwealth Community Worship
+      </h1>
+    </header>
+    <div class="flex-1 p-4 space-y-4 overflow-auto">
+      {setlists.map((setlist) => (
+        <a href={`/setlist/${setlist.id}/`} class="block">
+          <Card class="w-full rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+            <CardContent class="p-4 flex items-center justify-between">
+              <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">{setlist.date}</h2>
+            </CardContent>
+          </Card>
+        </a>
+      ))}
+    </div>
+  </main>
+</BaseLayout>
