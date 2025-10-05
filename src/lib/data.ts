@@ -29,19 +29,24 @@ async function getSongsBySlug(slugs: string[]): Promise<Song[]> {
 export async function getSetlists(): Promise<Setlist[]> {
   return [
     {
-      id: "2025-07-24",
-      date: "July 24, 2025",
-      songs: await getSongsBySlug(['goodness-of-god', 'trust-in-god', 'make-room', 'holy-forever']),
-    },
-    {
       id: "2025-08-27",
       date: "August 27, 2025",
       songs: await getSongsBySlug([
-        'great-are-you-lord',
-        'praise-yahweh',
-        'rest-on-us',
-        'ten-thousand-reasons',
-        'battle-belongs',
+        "great-are-you-lord",
+        "praise-yahweh",
+        "rest-on-us",
+        "ten-thousand-reasons",
+        "battle-belongs",
+      ]),
+    },
+    {
+      id: "2025-07-24",
+      date: "July 24, 2025",
+      songs: await getSongsBySlug([
+        "goodness-of-god",
+        "trust-in-god",
+        "make-room",
+        "holy-forever",
       ]),
     },
   ];
