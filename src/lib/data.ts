@@ -32,11 +32,11 @@ export async function getSetlists(): Promise<Setlist[]> {
       id: '2025-10-16',
       date: 'October 16, 2025',
       songs: await getSongsBySlug([
-        'yes-i-will',
+        'living-hope',
         'goodness-of-god',
-        'only-jesus',
         'the-lord-will-provide',
         'amazing-grace-my-chains-are-gone',
+        'yes-i-will',
       ]),
     },
     {
