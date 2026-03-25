@@ -29,6 +29,17 @@ async function getSongsBySlug(slugs: string[]): Promise<Song[]> {
 export async function getSetlists(): Promise<Setlist[]> {
   return [
     {
+      id: '2026-03-25',
+      date: 'March 25, 2025',
+      songs: await getSongsBySlug([
+        'who-else',
+        'firm-foundation',
+        'make-room',
+        'ten-thousand-reasons',
+        'holy-forever',
+      ]),
+    },
+    {
       id: '2025-10-16',
       date: 'October 16, 2025',
       songs: await getSongsBySlug([
