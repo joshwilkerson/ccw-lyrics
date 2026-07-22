@@ -30,7 +30,7 @@ export async function getSetlists(): Promise<Setlist[]> {
   return [
     {
       id: '2026-03-25',
-      date: 'March 25, 2025',
+      date: 'March 25, 2026',
       songs: await getSongsBySlug([
         'who-else',
         'firm-foundation',
